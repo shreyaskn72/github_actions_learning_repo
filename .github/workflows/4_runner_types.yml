@@ -1,0 +1,27 @@
+# Workflow to demonstrate different GitHub Actions runner types
+
+
+name: Runner Types Demo Workflow
+on: [push]
+jobs:
+  runner_types_job:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Print message from GitHub-hosted runner
+        run: echo "This step is running on a GitHub-hosted runner"
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up self-hosted runner environment
+        run: |
+          echo "Setting up self-hosted runner environment..."
+          # Add any setup commands needed for your self-hosted runner here
+          echo "os type is $(uname -a)"
+
+      - name: Print message from self-hosted runner
+        run: echo "This step is running on a self-hosted runner"
+        # Note: To actually run this step on a self-hosted runner,
+        # you would need to configure the job to use a self-hosted runner label.
+        # This is just a demonstration step.
