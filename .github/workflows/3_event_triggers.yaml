@@ -1,0 +1,16 @@
+# Github actions workflow to demonstrate different event triggers like push, pull_request, workflow_dispatch, issues, and schedule.
+
+
+name: Event Triggers Demo
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  issues:
+    types: [opened, closed]
+  schedule:
+    - cron: '0 0 * * 0'  # Runs every Sunday at midnight
