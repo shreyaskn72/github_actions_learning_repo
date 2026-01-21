@@ -39,7 +39,10 @@ jobs:
 
       - name: Handle Issues Event
         if: github.event_name == 'issues'
-        run: echo "This job was triggered by an issue event of type: ${{ github.event.action }}."
+        env:
+          ISSUE_ACTION: ${{ github.event.action }}
+        run:
+          echo "This job was triggered by an issue event of type: $ISSUE_ACTION"
 
       - name: Handle Scheduled Event
         if: github.event_name == 'schedule'
