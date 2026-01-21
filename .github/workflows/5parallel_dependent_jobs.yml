@@ -3,7 +3,7 @@ name: Parallel and Dependent Jobs Demo
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
