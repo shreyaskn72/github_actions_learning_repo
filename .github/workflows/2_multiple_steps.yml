@@ -10,3 +10,6 @@ jobs:
 
       - name: Print Hello World
         run: echo "Hello from GitHub Actions"
+
+      - name: current os type is
+        run: uname -a
