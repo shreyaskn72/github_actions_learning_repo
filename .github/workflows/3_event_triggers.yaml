@@ -1,16 +1,46 @@
-# Github actions workflow to demonstrate different event triggers like push, pull_request, workflow_dispatch, issues, and schedule.
-
+# GitHub Actions workflow to demonstrate different event triggers:
+# push, pull_request, workflow_dispatch, issues, and schedule
 
 name: Event Triggers Demo
+
 on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
+
   workflow_dispatch:
+
   issues:
     types: [opened, closed]
+
   schedule:
-    - cron: '0 0 * * 0'  # Runs every Sunday at midnight
+    - cron: "0 0 * * 0" # Runs every Sunday at midnight (UTC)
+
+jobs:
+  event_trigger_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Handle Push Event
+        if: github.event_name == 'push'
+        run: echo "This job was triggered by a push to the main branch."
+
+      - name: Handle Pull Request Event
+        if: github.event_name == 'pull_request'
+        run: echo "This job was triggered by a pull request to the main branch."
+
+      - name: Handle Workflow Dispatch Event
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "This job was triggered manually via workflow dispatch."
+
+      - name: Handle Issues Event
+        if: github.event_name == 'issues'
+        run: echo "This job was triggered by an issue event of type: ${{ github.event.action }}."
+
+      - name: Handle Scheduled Event
+        if: github.event_name == 'schedule'
+        run: echo "This job was triggered by a scheduled (cron) event."
