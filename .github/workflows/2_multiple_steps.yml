@@ -1,0 +1,12 @@
+name: multiple steps demo workflow
+on: [push]
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Hi from Shreyas
+        run: echo "Hi from Shreyas"
+
+      - name: Print Hello World
+        run: echo "Hello from GitHub Actions"
