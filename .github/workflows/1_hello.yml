@@ -1,0 +1,12 @@
+# This is a github workflow to Print “Hello from GitHub Actions”
+
+
+name: Hello World Workflow
+on: [push]
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello from GitHub Actions"
+
