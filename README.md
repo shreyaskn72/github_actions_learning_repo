@@ -220,6 +220,11 @@ Explanation: [8_conditional_steps_explanation.md](./8_conditional_steps_explanat
 
 * Multi-version testing
 
+Solution: [9_matrix.yml](./yml_files/9_matrix.yml)
+
+Explanation: [9_matrix_explanation.md](./9_matrix_explanation.md)
+
+
 ---
 
 ## 🔟 Artifacts & Caching
