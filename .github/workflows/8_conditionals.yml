@@ -22,7 +22,8 @@ jobs:
           echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       - name: Show changed files
-        run: echo "Files changed: ${{ steps.changes.outputs.changed_files }}"
+        run: |
+          echo "Files changed: ${{ steps.changes.outputs.changed_files }}"
 
       - name: Skip if only docs changed
         if: >
