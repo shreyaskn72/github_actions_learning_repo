@@ -1,0 +1,48 @@
+name: Artifacts and Caching Demo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Fetch repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Install Python runtime
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3️⃣ Cache pip dependencies (speed optimization)
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4️⃣ Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 5️⃣ Run tests and generate artifact
+      - name: Run tests and generate report
+        run: |
+          mkdir -p reports
+          pytest -q > reports/test-report.txt
+
+      # 6️⃣ Upload test report as artifact
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: reports/
