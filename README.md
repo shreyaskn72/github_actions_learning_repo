@@ -425,8 +425,11 @@ Dockerfile
 ## 🎯 What You’ll Be Able To Do After This
 
 ✅ Write production CI/CD pipelines
+
 ✅ Use GitHub Actions professionally
+
 ✅ Deploy to cloud securely
+
 ✅ Clear DevOps interviews
 
 ---
