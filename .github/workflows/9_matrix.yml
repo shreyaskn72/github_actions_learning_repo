@@ -1,0 +1,38 @@
+name: Matrix Build Demo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }} with Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.9", "3.10", "3.11"]
+        exclude:
+          - os: windows-latest
+            python: "3.9"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Show environment info
+        run: |
+          python --version
+          echo "Running on OS: ${{ runner.os }}"
+
+      - name: Run tests
+        run: echo "Tests passed 🎉"
