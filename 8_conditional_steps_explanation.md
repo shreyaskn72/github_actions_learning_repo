@@ -1,5 +1,5 @@
 Absolutely 👍
-Here’s **another Lab 8 example**, different from deploy-only-on-main, that really drills **expressions, conditions, contexts, and step outputs**—with a **clear mental model**.
+Here’s **another Lab 8 example**, different from deploy-only-on-master, that really drills **expressions, conditions, contexts, and step outputs**—with a **clear mental model**.
 
 ---
 
@@ -9,7 +9,7 @@ Here’s **another Lab 8 example**, different from deploy-only-on-main, that rea
 
 You want to:
 
-* Run **heavy tests only on `main`**
+* Run **heavy tests only on `master`**
 * Run **light checks on feature branches**
 * **Skip everything** if only docs changed
 
@@ -35,7 +35,7 @@ name: Conditional CI Using Expressions
 on:
   push:
     branches:
-      - main
+      - master
       - "feature/*"
 
 jobs:
@@ -49,12 +49,13 @@ jobs:
       - name: Detect changed files
         id: changes
         run: |
-          git fetch origin main
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          git fetch origin master
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD)
           echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       - name: Show changed files
-        run: echo "Files changed: ${{ steps.changes.outputs.changed_files }}"
+        run: |
+          echo "Files changed: ${{ steps.changes.outputs.changed_files }}"
 
       - name: Skip if only docs changed
         if: >
@@ -62,12 +63,12 @@ jobs:
         run: echo "Code changes detected, continuing CI"
 
       - name: Light checks (feature branches)
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         run: echo "Running fast checks for feature branch"
 
-      - name: Heavy tests (main branch)
-        if: github.ref == 'refs/heads/main'
-        run: echo "Running full test suite for main branch"
+      - name: Heavy tests (master branch)
+        if: github.ref == 'refs/heads/master'
+        run: echo "Running full test suite for master branch"
 
       - name: Always run cleanup
         if: always()
@@ -114,10 +115,10 @@ This uses **GitHub expression functions**, not shell logic.
 ### 3️⃣ Branch-Based Conditions
 
 ```yaml
-if: github.ref == 'refs/heads/main'
+if: github.ref == 'refs/heads/master'
 ```
 
-✔ Runs only on main
+✔ Runs only on master
 ✔ Exact ref comparison (important!)
 
 ---
@@ -125,10 +126,10 @@ if: github.ref == 'refs/heads/main'
 ### 4️⃣ Feature Branch Logic
 
 ```yaml
-if: github.ref != 'refs/heads/main'
+if: github.ref != 'refs/heads/master'
 ```
 
-✔ Runs on any non-main branch
+✔ Runs on any non-master branch
 
 ---
 

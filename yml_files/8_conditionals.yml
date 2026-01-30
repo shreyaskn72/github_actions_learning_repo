@@ -1,0 +1,43 @@
+name: Conditional CI Using Expressions
+
+on:
+  push:
+    branches:
+      - master
+      - "feature/*"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Detect changed files
+        id: changes
+        run: |
+          git fetch origin master
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD)
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+
+      - name: Show changed files
+        run: |
+          echo "Files changed: ${{ steps.changes.outputs.changed_files }}"
+
+      - name: Skip if only docs changed
+        if: >
+          !contains(steps.changes.outputs.changed_files, 'docs/')
+        run: echo "Code changes detected, continuing CI"
+
+      - name: Light checks (feature branches)
+        if: github.ref != 'refs/heads/master'
+        run: echo "Running fast checks for feature branch"
+
+      - name: Heavy tests (master branch)
+        if: github.ref == 'refs/heads/master'
+        run: echo "Running full test suite for master branch"
+
+      - name: Always run cleanup
+        if: always()
+        run: echo "Cleaning up resources"

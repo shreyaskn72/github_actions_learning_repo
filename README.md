@@ -191,6 +191,13 @@ Explanation: [7_secrets_env_explanation.md](./7_env_variables_and_secrets.md)
 
 * Dynamic workflow logic
 
+Solution: [8_conditional_steps.yml](./yml_files/8_conditionals.yml)
+
+Explanation: [8_conditional_steps_explanation.md](./8_conditional_steps_explanation.md)
+
+
+
+
 ---
 
 ## 9️⃣ Matrix Builds
