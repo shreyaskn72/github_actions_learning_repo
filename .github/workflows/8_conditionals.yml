@@ -3,7 +3,7 @@ name: Conditional CI Using Expressions
 on:
   push:
     branches:
-      - main
+      - master
       - "feature/*"
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
       - name: Detect changed files
         id: changes
         run: |
-          git fetch origin main
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          git fetch origin master
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD)
           echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       - name: Show changed files
@@ -31,12 +31,12 @@ jobs:
         run: echo "Code changes detected, continuing CI"
 
       - name: Light checks (feature branches)
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         run: echo "Running fast checks for feature branch"
 
-      - name: Heavy tests (main branch)
-        if: github.ref == 'refs/heads/main'
-        run: echo "Running full test suite for main branch"
+      - name: Heavy tests (master branch)
+        if: github.ref == 'refs/heads/master'
+        run: echo "Running full test suite for master branch"
 
       - name: Always run cleanup
         if: always()
