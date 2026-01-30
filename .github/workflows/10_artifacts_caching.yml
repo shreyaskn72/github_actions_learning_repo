@@ -3,7 +3,7 @@ name: Artifacts and Caching Demo
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
