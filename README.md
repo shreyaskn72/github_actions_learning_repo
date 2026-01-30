@@ -245,6 +245,10 @@ Explanation: [9_matrix_explanation.md](./9_matrix_explanation.md)
 
 * Faster pipelines
 
+Solution: [10_artifacts_caching.yml](./yml_files/10_artifacts_caching.yml)
+
+Explanation: [10_artifacts_caching_explanation.md](./10_artifacts_caching.md)
+
 ---
 
 ## 1️⃣1️⃣ Testing & Quality
